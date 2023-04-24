@@ -2,6 +2,145 @@ from Lex import tokens
 import ply.yacc as yacc
 import sys
 
+# SEMANTIC CUBE
+
+SEMANTIC_CUBE = {
+    "INT" : {
+        "+" : {
+            "INT" :True,
+            "FLOAT" :True,
+            "STRING" :False
+        },
+        "-" :{
+            "INT" :True,
+            "FLOAT" :True,
+            "STRING" :False   
+        },
+        "*" :{
+            "INT" :True,
+            "FLOAT" :True,
+            "STRING" :False 
+        },
+        "/" :{
+            "INT" :True,
+            "FLOAT" :True,
+            "STRING" :False
+        },
+        "<" :{
+            "INT" :True,
+            "FLOAT" :True,
+            "STRING" :False
+        },
+        ">" :{
+            "INT" :True,
+            "FLOAT" :True,
+            "STRING" :False
+        },
+        "!=" :{
+            "INT" :True,
+            "FLOAT" :True,
+            "STRING" :False
+        },
+        "==" :{
+            "INT" :True,
+            "FLOAT" :True,
+            "STRING" :False
+        }
+        
+
+        
+    },
+    "FLOAT" : {
+        "+" : {
+            "INT" :True,
+            "FLOAT" :True,
+            "STRING" :False
+        },
+        "-" :{
+            "INT" :True,
+            "FLOAT" :True,
+            "STRING" :False   
+        },
+        "*" :{
+            "INT" :True,
+            "FLOAT" :True,
+            "STRING" :False 
+        },
+        "/" :{
+            "INT" :True,
+            "FLOAT" :True,
+            "STRING" :False
+        },
+        "<" :{
+            "INT" :True,
+            "FLOAT" :True,
+            "STRING" :False
+        },
+        ">" :{
+            "INT" :True,
+            "FLOAT" :True,
+            "STRING" :False
+        },
+        "!=" :{
+            "INT" :True,
+            "FLOAT" :True,
+            "STRING" :False
+        },
+        "==" :{
+            "INT" :True,
+            "FLOAT" :True,
+            "STRING" :False
+        }
+
+    },
+    "STRING" :{
+         "+" :{
+            "INT" :False,
+            "FLOAT" :False,
+            "STRING" :True
+         },
+         "-" :{
+            "INT" :False,
+            "FLOAT" :False,
+            "STRING" :False
+         },
+        "*" :{
+            "INT" :False,
+            "FLOAT" :False,
+            "STRING" :False
+         },
+         "/" :{
+            "INT" :False,
+            "FLOAT" :False,
+            "STRING" :False
+         },
+        "<" :{
+            "INT" :False,
+            "FLOAT" :False,
+            "STRING" :False
+         },
+         ">" :{
+            "INT" :False,
+            "FLOAT" :False,
+            "STRING" :False
+         },
+        "!=" :{
+            "INT" :False,
+            "FLOAT" :False,
+            "STRING" :False
+         },
+         "==" :{
+            "INT" :False,
+            "FLOAT" :False,
+            "STRING" :False
+         }
+
+    }
+
+}
+
+
+
 # GRAMMAR
 
 
@@ -46,7 +185,7 @@ def p_estatuto1(p):
 def p_estatuto2(p):
     '''estatuto2 : asignacion 
                 | condicion
-                | escritura
+                | llamado
                 | whileLoop
                 | forLoop'''
 
@@ -55,17 +194,17 @@ def p_asignacion(p):
     '''asignacion : ID ASSIGN expresion'''
 
 
-def p_escritura(p):
-    '''escritura : PRINT PARENTESIS_L escritura_1 PARENTESIS_R'''
+def p_llamado(p):
+    '''llamada_de_funciones : ID PARENTESIS_L llamado_1 PARENTESIS_R'''
 
 
-def p_escritura_1(p):
-    '''escritura_1 : escritura_2
-                    | escritura_2 COMA escritura_2'''
+def p_llamado_1(p):
+    '''llamado_1 : llamado_2
+                    | llamado_2 COMA llamado_2'''
 
 
-def p_escritura_2(p):
-    '''escritura_2 : STRING
+def p_llamado_2(p):
+    '''llamado_2 : STRING
                     | expresion'''
 
 
