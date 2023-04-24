@@ -10,7 +10,7 @@ def p_programa(p):
 
 
 def p_bloque(p):
-    '''bloque : CURLY_L var1 estatuto1 CURLY_L'''
+    '''bloque : CURLY_L var1 estatuto1 CURLY_R'''
 
 
 def p_var1(p):
