@@ -195,7 +195,7 @@ def p_asignacion(p):
 
 
 def p_llamado(p):
-    '''llamada_de_funciones : ID PARENTESIS_L llamado_1 PARENTESIS_R'''
+    '''llamado : ID PARENTESIS_L llamado_1 PARENTESIS_R'''
 
 
 def p_llamado_1(p):
