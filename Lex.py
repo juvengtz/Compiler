@@ -20,7 +20,7 @@ tokens = [
     'BRACKET_L', 'BRACKET_R', 'EQUAL', 'NOT_EQUAL', 'ASSIGN',
     'PARENTESIS_L', 'PARENTESIS_R', 'CURLY_L', 'CURLY_R',
     'CTE_STRING', 'PLUS', 'MINUS', 'MULT', 'DIV', 'MORE', 'LESS',
-    'CTE_INT', 'CTE_FLOAT'
+    'CTE_INT', 'CTE_FLOAT', 'NOTEQUAL'
 ] + list(keywords.values())
 # REGEX
 t_SEMICOLON = r'\;'
