@@ -1,144 +1,7 @@
 from Lex import tokens
 import ply.yacc as yacc
 import sys
-
-# SEMANTIC CUBE
-
-SEMANTIC_CUBE = {
-    "INT" : {
-        "+" : {
-            "INT" :True,
-            "FLOAT" :True,
-            "STRING" :False
-        },
-        "-" :{
-            "INT" :True,
-            "FLOAT" :True,
-            "STRING" :False   
-        },
-        "*" :{
-            "INT" :True,
-            "FLOAT" :True,
-            "STRING" :False 
-        },
-        "/" :{
-            "INT" :True,
-            "FLOAT" :True,
-            "STRING" :False
-        },
-        "<" :{
-            "INT" :True,
-            "FLOAT" :True,
-            "STRING" :False
-        },
-        ">" :{
-            "INT" :True,
-            "FLOAT" :True,
-            "STRING" :False
-        },
-        "!=" :{
-            "INT" :True,
-            "FLOAT" :True,
-            "STRING" :False
-        },
-        "==" :{
-            "INT" :True,
-            "FLOAT" :True,
-            "STRING" :False
-        }
-        
-
-        
-    },
-    "FLOAT" : {
-        "+" : {
-            "INT" :True,
-            "FLOAT" :True,
-            "STRING" :False
-        },
-        "-" :{
-            "INT" :True,
-            "FLOAT" :True,
-            "STRING" :False   
-        },
-        "*" :{
-            "INT" :True,
-            "FLOAT" :True,
-            "STRING" :False 
-        },
-        "/" :{
-            "INT" :True,
-            "FLOAT" :True,
-            "STRING" :False
-        },
-        "<" :{
-            "INT" :True,
-            "FLOAT" :True,
-            "STRING" :False
-        },
-        ">" :{
-            "INT" :True,
-            "FLOAT" :True,
-            "STRING" :False
-        },
-        "!=" :{
-            "INT" :True,
-            "FLOAT" :True,
-            "STRING" :False
-        },
-        "==" :{
-            "INT" :True,
-            "FLOAT" :True,
-            "STRING" :False
-        }
-
-    },
-    "STRING" :{
-         "+" :{
-            "INT" :False,
-            "FLOAT" :False,
-            "STRING" :True
-         },
-         "-" :{
-            "INT" :False,
-            "FLOAT" :False,
-            "STRING" :False
-         },
-        "*" :{
-            "INT" :False,
-            "FLOAT" :False,
-            "STRING" :False
-         },
-         "/" :{
-            "INT" :False,
-            "FLOAT" :False,
-            "STRING" :False
-         },
-        "<" :{
-            "INT" :False,
-            "FLOAT" :False,
-            "STRING" :False
-         },
-         ">" :{
-            "INT" :False,
-            "FLOAT" :False,
-            "STRING" :False
-         },
-        "!=" :{
-            "INT" :False,
-            "FLOAT" :False,
-            "STRING" :False
-         },
-         "==" :{
-            "INT" :False,
-            "FLOAT" :False,
-            "STRING" :False
-         }
-
-    }
-
-}
-
+from SemanticCube import SEMANTIC_CUBE
 
 
 # GRAMMAR
@@ -260,7 +123,8 @@ def p_termino(p):
 
 def p_operacion(p):
     '''operacion : MULT exp
-                 | DIV exp'''
+                 | DIV exp
+                 | PERCENT exp'''
 
 
 def p_factor(p):

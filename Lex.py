@@ -20,7 +20,7 @@ tokens = [
     'BRACKET_L', 'BRACKET_R', 'EQUAL', 'NOT_EQUAL', 'ASSIGN',
     'PARENTESIS_L', 'PARENTESIS_R', 'CURLY_L', 'CURLY_R',
     'CTE_STRING', 'PLUS', 'MINUS', 'MULT', 'DIV', 'MORE', 'LESS',
-    'CTE_INT', 'CTE_FLOAT', 'NOTEQUAL'
+    'CTE_INT', 'CTE_FLOAT', 'NOTEQUAL', 'PERCENT'
 ] + list(keywords.values())
 # REGEX
 t_SEMICOLON = r'\;'
@@ -39,13 +39,15 @@ t_PLUS = r'\+'
 t_MINUS = r'\-'
 t_MULT = r'\*'
 t_DIV = r'\/'
+t_PERCENT = r'\%'
 t_MORE = r'\>'
 t_LESS = r'\<'
 t_ignore = ' \t'
 
 
 def t_ID(t):
-    r'[a-zA-Z_][a-zA-Z_0-9]*'
+    r'[a-zA-Z_][a-zA-Z0-9]*'
+    t.type = keywords.get(t.value, 'ID')
     return t
 
 
