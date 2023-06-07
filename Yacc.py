@@ -1141,7 +1141,7 @@ parser = yacc.yacc()
 
 def generate_data():
     try:
-        file = 'test.neupy'
+        file = input('File: ')
         with open(file, 'r') as file:
             parser.parse(file.read())
 

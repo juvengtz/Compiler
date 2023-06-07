@@ -166,7 +166,7 @@ def reading_caster(value, memory):
 while running:
     quadruple = Quadruple.getQuadruple(quadruples[current_quadruple])
     operator = quadruple[0]
-
+    # print(f'quad{quadruple[0]}')
     # GOTO / GOTOF
     if operator == 'GOTO':
         current_quadruple = quadruple[3]

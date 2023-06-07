@@ -1,4 +1,4 @@
-Program LinearSearch
+Program linearSearch
 Var
     arr[10] : Int;
     n : Int;

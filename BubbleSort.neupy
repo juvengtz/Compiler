@@ -1,12 +1,11 @@
-Program BubbleSort
-Var
-    arr[10] : Int;
-    n : Int;
-Function Void sort(arr : Int, n : Int)
-Var
-    i : Int;
-    j : Int;
-    temp : Int;
+Program bubbleSort;
+Var arr[10] : Int;
+Var    n : Int;
+Void Function  sort(arr : Int, n : Int)
+
+Var    i : Int;
+Var    j : Int;
+Var    temp : Int;
 {
     From (i = 0) To n-1 Do
     {

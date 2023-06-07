@@ -1,4 +1,4 @@
-Program FibonacciIterative
+Program fibonacciIterative;
 Var
     n : Int;
     fib : Int;

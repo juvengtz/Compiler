@@ -1,0 +1,7 @@
+Int Function test(dato : Int) {
+  if(dato <= 1) {
+    Return 1;
+  } else {
+    Return (dato * test(dato - 1));
+  }
+}

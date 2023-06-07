@@ -1,4 +1,4 @@
-Program MatrixMultiplication
+Program matrixMultiplication;
 Var
     mat1[3][3] : Int;
     mat2[3][3] : Int;

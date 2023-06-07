@@ -1,19 +1,21 @@
-Program FactorialIterative
+Program factorialIterative;
+
 Var
     n : Int;
     result : Int;
-Function Int factorial(n : Int)
+
+Int Function factorial(m : Int) 
 Var
     i : Int;
-    result : Int;
 {
     result = 1;
-    From (i = 1) To n Do
+    From (i = 1) To m Do
     {
         result = result * i;
     }
     Return(result);
 }
+
 Main()
 {
     Read(n);
