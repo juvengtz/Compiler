@@ -1,0 +1,24 @@
+Program LinearSearch
+Var
+    arr[10] : Int;
+    n : Int;
+    key : Int;
+Function Int find(arr : Int, n : Int, key : Int)
+Var
+    i : Int;
+{
+    From (i = 0) To n Do
+    {
+        If (arr[i] == key) Then
+        {
+            Return(i);
+        }
+    }
+    Return(-1);
+}
+Main()
+{
+    # Read n, arr and key from input
+    i = find(arr, n, key);
+    Write(i);
+}

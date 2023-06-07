@@ -1,0 +1,29 @@
+Program MatrixMultiplication
+Var
+    mat1[3][3] : Int;
+    mat2[3][3] : Int;
+    result[3][3] : Int;
+Function Void multiply(mat1 : Int, mat2 : Int, result : Int)
+Var
+    i : Int;
+    j : Int;
+    k : Int;
+{
+    From (i = 0) To 3 Do
+    {
+        From (j = 0) To 3 Do
+        {
+            result[i][j] = 0;
+            From (k = 0) To 3 Do
+            {
+                result[i][j] += mat1[i][k] * mat2[k][j];
+            }
+        }
+    }
+}
+Main()
+{
+    # Read mat1 and mat2 from input
+    multiply(mat1, mat2, result);
+    # Write result to output
+}

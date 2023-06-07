@@ -1,0 +1,29 @@
+Program BubbleSort
+Var
+    arr[10] : Int;
+    n : Int;
+Function Void sort(arr : Int, n : Int)
+Var
+    i : Int;
+    j : Int;
+    temp : Int;
+{
+    From (i = 0) To n-1 Do
+    {
+        From (j = 0) To n-i-1 Do
+        {
+            If (arr[j] > arr[j+1]) Then
+            {
+                temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+        }
+    }
+}
+Main()
+{
+    # Read n and arr from input
+    sort(arr, n);
+    # Write arr to output
+}

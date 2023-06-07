@@ -1,0 +1,30 @@
+Program FibonacciIterative
+Var
+    n : Int;
+    fib : Int;
+Function Int fibonacci(n : Int)
+Var
+    i : Int;
+    fib1 : Int;
+    fib2 : Int;
+{
+    fib1 = 0;
+    fib2 = 1;
+    If (n == 0) Then
+    {
+        Return(fib1);
+    }
+    From (i = 2) To n Do
+    {
+        fib = fib1 + fib2;
+        fib1 = fib2;
+        fib2 = fib;
+    }
+    Return(fib2);
+}
+Main()
+{
+    Read(n);
+    fib = fibonacci(n);
+    Write(fib);
+}

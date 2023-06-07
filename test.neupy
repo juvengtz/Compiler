@@ -1,0 +1,16 @@
+Program recursive;
+
+Var x : Int;
+
+Int Function test(dato : Int) {
+
+Return(dato * test(dato - 1));
+  
+}
+
+Main(){
+
+  Read(x);
+  
+  Write(test(x));
+}
