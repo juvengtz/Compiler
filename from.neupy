@@ -1,0 +1,12 @@
+Program printNumbers;
+
+Var 
+    i : Int;
+
+Main()
+{
+    From (i = 0) To 9 Do 
+    {
+        
+    }
+}

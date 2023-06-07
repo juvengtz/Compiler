@@ -1,0 +1,22 @@
+Program simpleTest;
+
+Var
+    x : Int;
+    y : Int;
+    z : Int;
+
+Int Function addNumbers(a : Int, b : Int) 
+Var
+    result : Int;
+{
+    result = a + b;
+    Return(result);
+}
+
+Main()
+{
+    Read(x);
+    y = 20;
+    z = addNumbers(x, y);
+    Write(z);
+}

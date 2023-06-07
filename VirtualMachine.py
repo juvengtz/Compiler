@@ -45,10 +45,10 @@ min_float = 3001
 for var in variable_table[prog_name]['variables']:
     if variable_table[prog_name]['variables'][var]['type'] == 'Float':
         if variable_table[prog_name]['variables'][var]['variable_table'] > max_float:
-            maxFlotante = variable_table[prog_name]['variables'][var]['variable_table']
+            max_float = variable_table[prog_name]['variables'][var]['variable_table']
 
         if variable_table[prog_name]['variables'][var]['variable_table'] < min_float:
-            minFlotante = variable_table[prog_name]['variables'][var]['variable_table']
+            min_float = variable_table[prog_name]['variables'][var]['variable_table']
 
 while min_float <= max_float:
     super_variable_table[min_float] = None
@@ -69,7 +69,7 @@ while min_char <= max_char:
     super_variable_table[min_char] = None
     min_char += 1
 
-super_constant_table = {}
+# super_constant_table = {}
 for type_ in constant_table:
     for var in constant_table[type_]:
         super_constant_table[constant_table[type_][var]['memory']] = var
@@ -87,34 +87,32 @@ def notify_error(error_text):
 
 
 def get_type(memory):
-
     if re.match("\(\d+\)", str(memory)):
         memory = get_type(int(memory[1:-1]))
     memory = int(memory)
-
     # INTEGER
     if 1001 <= memory <= 2000 or 4001 <= memory <= 5000 or 7001 <= memory <= 8000:
         if 4001 <= memory <= 5000:
-            return int(local_variables[-1].get(memory, 0))
+            return int(local_variables[-1][memory])
         else:
-            return int(st.get(memory, 0))
+            return int(st[memory])
     # FLOAT
     elif 2001 <= memory <= 3000 or 5001 <= memory <= 6000 or 8001 <= memory <= 9000:
         if 5001 <= memory <= 6000:
-            return float(local_variables[-1].get(memory, 0.0))
+            return float(local_variables[-1][memory])
         else:
-            return float(st.get(memory, 0.0))
+            return float(st[memory])
     # CHARACTERS
     elif 3001 <= memory <= 4000 or 6001 <= memory <= 7000 or 9001 <= memory <= 10000:
         if 6001 <= memory <= 7000:
-            return local_variables[-1].get(memory, ' ')
+            return local_variables[-1][memory]
         else:
-            return st.get(memory, ' ')
+            return st[memory]
     # STRINGS
     elif 10001 <= memory <= 11000:
-        text = st.get(memory, '')
+        text = st[memory]
         size = len(text)
-        return text[1:size-1] if text else ''
+        return text[1:size-1]
     else:
         notify_error("OPERATION ERROR")
 
@@ -142,6 +140,21 @@ def is_local(memory):
         return False
 
 
+def comparer(bool, memory):
+    global current_quadruple
+    if is_local(memory):
+        if bool == False:
+            local_variables[-1][memory] = 0
+        else:
+            local_variables[-1][memory] = 1
+    else:
+        if bool == False:
+            st[memory] = 0
+        else:
+            st[memory] = 1
+    current_quadruple += 1
+
+
 def reading_caster(value, memory):
     if re.match("[-]?[0-9]+([.][0-9]+)", value):
         if 2001 <= memory <= 3000 or 5001 <= memory <= 6000 or 8001 <= memory <= 9000:
@@ -166,7 +179,6 @@ def reading_caster(value, memory):
 while running:
     quadruple = Quadruple.getQuadruple(quadruples[current_quadruple])
     operator = quadruple[0]
-    # print(f'quad{quadruple[0]}')
     # GOTO / GOTOF
     if operator == 'GOTO':
         current_quadruple = quadruple[3]
@@ -178,6 +190,7 @@ while running:
 
     # ASSIGNMENT
     elif operator == '=':
+
         a = quadruple[3]
         b = get_type(quadruple[1])
 
@@ -192,6 +205,7 @@ while running:
 
     # OPERATIONS
     elif operator in ('+', '-', '*', '/'):
+
         # print(f'quadruple[1]: {quadruple[1]}, quadruple[2]: {quadruple[2]}')
         res = eval(
             f'{get_type(quadruple[1])} {operator} {get_type(quadruple[2])}')
@@ -208,10 +222,11 @@ while running:
 
     # COMPARATORS
     elif operator in ('<', '>', '<=', '>=', '==', '!='):
+
         res = eval(
             f'{get_type(quadruple[1])} {operator} {get_type(quadruple[2])}')
-
-        if is_local(quadruple[3]):
+        comparer(res, quadruple[3])
+        """if is_local(quadruple[3]):
             if res == False:
                 local_variables[-1][quadruple[3]] = 0
             else:
@@ -221,10 +236,11 @@ while running:
                 st[quadruple[3]] = 0
             else:
                 st[quadruple[3]] = 1
-        current_quadruple += 1
+        current_quadruple += 1 """
 
     # AND
     elif operator == '&':
+
         res1, res2 = (get_type(quadruple[i]) != 0 for i in (1, 2))
         if is_local(quadruple[3]):
             local_variables[-1][quadruple[3]] = int(res1 + res2 == 2)
@@ -234,6 +250,7 @@ while running:
 
     # OR
     elif operator == '|':
+
         res1, res2 = (get_type(quadruple[i]) != 0 for i in (1, 2))
 
         if is_local(quadruple[3]):
@@ -244,10 +261,12 @@ while running:
 
     # WRITE
     elif operator == 'WRITE':
+
         print(get_type(quadruple[3]))
         current_quadruple += 1
 
     elif operator == 'READ':
+
         var = input("> ")
         if is_local(quadruple[3]):
             local_variables[-1][quadruple[3]
@@ -256,36 +275,43 @@ while running:
             st[quadruple[3]] = reading_caster(var, quadruple[3])
         current_quadruple += 1
     elif operator == 'ERA':
+
         start_local_memory(quadruple[1])
         current_function = quadruple[1]
         current_parameters = list(
             variable_table[current_function]['variables'])
         current_quadruple += 1
     elif operator == 'PARAM':
+
         index = int((quadruple[3])[5]) - 1
         local_table_dictionary[variable_table[current_function]['variables']
                                [current_parameters[index]]['memory']] = get_type(quadruple[1])
         current_quadruple += 1
     elif operator == 'GOSUB':
+
         function_call_stack.append(current_quadruple)
         local_variables.append(local_table_dictionary)
         local_table_dictionary = {}
         current_quadruple = variable_table[quadruple[1]]['quadrupleNum']
     elif operator == 'RETURN':
+
         memory = variable_table[prog_name]['variables'][current_function]['memory']
         st[memory] = get_type(quadruple[3])
         delete_local_memory()
         current_quadruple = int(function_call_stack.pop()) + 1
     elif operator == 'ENDFUNC':
+
         delete_local_memory()
         current_quadruple = int(function_call_stack.pop()) + 1
     elif operator == 'VERIFY':
+
         if int(quadruple[2]) <= int(get_type(quadruple[1])) < int(quadruple[3]):
             pass
         else:
             notify_error("Invalid index for array/matrix")
         current_quadruple += 1
     elif operator == 'SUM_BASE':
+
         res = int(quadruple[1]) + get_type(quadruple[2])
         if is_local(res):
             local_variables[-1][quadruple[3]] = res
@@ -293,10 +319,13 @@ while running:
             st[quadruple[3]] = res
         current_quadruple += 1
     elif operator == 'END':
+
         running = 0
     else:
         print("Error in the quadruples")
         running = 0
+
+
 """
 
 def handle_functions(operator, quadruple):

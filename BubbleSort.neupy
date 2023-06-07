@@ -1,15 +1,34 @@
 Program bubbleSort;
-Var arr[10] : Int;
-Var    n : Int;
-Void Function  sort(arr : Int, n : Int)
 
-Var    i : Int;
-Var    j : Int;
-Var    temp : Int;
-{
-    From (i = 0) To n-1 Do
+Var 
+    arr[10] : Int; 
+    n : Int;
+    i : Int;
+    j : Int;
+    temp : Int;
+
+Main()
+{   
+    arr[0] = 3;
+    arr[1] = 4;
+    arr[2] = 2;
+    arr[3] = 7;
+    arr[4] = 4;
+    arr[5] = -2;
+    arr[6] = 2;
+    arr[7] = 17;
+    arr[8] = -9;
+    arr[9] = -8;
+    
+    Write("unsorted");
+    From (i = 0) To 9 Do 
+    {   
+        Write(arr[i]);
+    }
+    
+    From (i = 0) To 10 Do
     {
-        From (j = 0) To n-i-1 Do
+        From (j = 0) To 8 - i Do
         {
             If (arr[j] > arr[j+1]) Then
             {
@@ -19,10 +38,10 @@ Var    temp : Int;
             }
         }
     }
-}
-Main()
-{
-    # Read n and arr from input
-    sort(arr, n);
-    # Write arr to output
+    Write("sorted");
+    From (i = 0) To 9 Do 
+    {   
+        
+        Write(arr[i]);
+    }
 }

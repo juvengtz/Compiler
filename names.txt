@@ -5,3 +5,5 @@ Factorial (Iterative).neupy
 Fibonacci (Iterative).neupy
 Linear Search.neupy
 new_test.neupy
+simp.neupy
+read.neupy

@@ -1,0 +1,10 @@
+Program readTest;
+
+Var a : Char;
+
+Main()
+{
+    a = 'J';
+    Write(a);
+    Write("Hola");
+}

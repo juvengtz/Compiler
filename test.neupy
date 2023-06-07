@@ -11,6 +11,6 @@ Return(dato * test(dato - 1));
 Main(){
 
   Read(x);
-  
+  Write("test")
   Write(test(x));
 }

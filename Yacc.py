@@ -12,15 +12,15 @@ c = 0
 prog_name = ''
 curr_func_name = ''
 curr_func_type = ''
-curr_currVarName = ''
-curr_var_type = ''
+current_variable_name = ''
+current_variable_type = ''
 curr_for_assign = 0
 param_counter = 0
 param_receive_counter = 0
 exists_return = 0
 call_origin = 0
 function_params = {}
-var_size = 1
+variable_size = 1
 for_var_stack = deque()
 vars_stack = deque()
 operators_stack = deque()
@@ -426,8 +426,8 @@ def p_np_endProgram(p):
 
 def p_np_addFunction(p):
     'np_addFunction : '
-    global curr_func_name, curr_func_type, prog_name, memoryIntegerL, memoryFloatL, memoryCharL, returnExists
-    returnExists = 0
+    global curr_func_name, curr_func_type, prog_name, memoryIntegerL, memoryFloatL, memoryCharL, exists_return
+    exists_return = 0
     curr_func_name = p[-1]
     curr_func_type = p[-3]
     if curr_func_name not in variables_table.keys():
@@ -451,16 +451,16 @@ def p_np_addFunction(p):
 
 def p_np_endFunction(p):
     'np_endFunction : '
-    global returnExists, curr_func_name
-    if curr_func_type != 'Void' and returnExists == 0:
+    global exists_return, curr_func_name
+    if curr_func_type != 'Void' and exists_return == 0:
         p_notifError(str(lexer.lineno) + " - The function " +
                      curr_func_name + " does not have a return statement")
-    elif curr_func_type == 'Void' and returnExists == 1:
+    elif curr_func_type == 'Void' and exists_return == 1:
         p_notifError(str(lexer.lineno) + " - The function " +
                      curr_func_name + " should not have return statements")
     else:
         quadruples.append(Quadruple('ENDFUNC', None, None, None))
-        returnExists = 0
+        exists_return = 0
 
 
 def p_np_main(p):
@@ -926,19 +926,19 @@ def p_np_write(p):
 def p_np_string(p):
     'np_string : '
     global mem_strings, prog_name
-    if p[-1] not in constants_table['string'].keys():
+    if p[-1] not in constants_table['String'].keys():
         mem_strings += 1
-        constants_table['string'][p[-1]
-                                  ] = {'type': 'string', 'memory': mem_strings}
+        constants_table['String'][p[-1]
+                                  ] = {'type': 'String', 'memory': mem_strings}
 
     quadruples.append(Quadruple('WRITE', None, None, mem_strings))
 
 
 def p_np_return(p):
     'np_return : '
-    global curr_func_type, prog_name, returnExists
+    global curr_func_type, prog_name, exists_return
     if types_stack.pop() == curr_func_type:
-        returnExists = 1
+        exists_return = 1
         quadruples.append(Quadruple('RETURN', None, None, terms_stack.pop()))
     else:
         p_notifError(str(lexer.lineno) +
@@ -958,13 +958,13 @@ def p_np_startDecision(p):
 def p_np_startDecisionElse(p):
     'np_startDecisionElse : '
     quadruples.append(Quadruple('GOTO', None, None, 0))
-    quadruples[jumps_stack.pop()].res = len(quadruples)
+    quadruples[jumps_stack.pop()].result = len(quadruples)
     jumps_stack.append(len(quadruples)-1)
 
 
 def p_np_endDecision(p):
     'np_endDecision : '
-    quadruples[jumps_stack.pop()].res = len(quadruples)
+    quadruples[jumps_stack.pop()].result = len(quadruples)
 
 
 def p_np_conditionalBefore(p):
@@ -980,7 +980,7 @@ def p_np_conditionalDuring(p):
 def p_np_conditionalAfter(p):
     'np_conditionalAfter : '
     quadruples.append(Quadruple('GOTO', None, None, jumps_stack[-1]))
-    quadruples[jumps_stack.pop() + 1].res = len(quadruples)
+    quadruples[jumps_stack.pop() + 1].result = len(quadruples)
 
 
 # NON CONDITIONAL
@@ -1010,20 +1010,20 @@ def p_np_addIDFor(p):
 
 def p_np_for_assignment(p):
     'np_for_assignment : '
-    global curr_assignment_for
+    global curr_for_assign
     equal = operators_stack.pop()
     right = terms_stack.pop()
     left = terms_stack.pop()
     quadruples.append(Quadruple(equal, right, None, left))
-    curr_assignment_for = left
+    curr_for_assign = left
 
 
 def p_np_boolFor(p):
     'np_boolFor : '
-    global curr_assignment_for
+    global curr_for_assign
 
     right_side = terms_stack.pop()
-    left_side = curr_assignment_for
+    left_side = curr_for_assign
     right_side_type = types_stack.pop()
     left_side_type = 'Int'
     operator = '<'
@@ -1031,24 +1031,24 @@ def p_np_boolFor(p):
     result_type = SemanticCube.getCubeType(
         left_side_type, right_side_type, operator)
     if curr_func_name == prog_name:
-        memory_result = p_get_global_memory(result_type)
+        result_memory = p_get_global_memory(result_type)
     else:
-        memory_result = p_get_local_memory(result_type)
+        result_memory = p_get_local_memory(result_type)
 
     if result_type != 'Error':
         quadruples.append(Quadruple(operator, left_side,
-                          right_side, memory_result))
+                          right_side, result_memory))
         jumps_stack.append(len(quadruples)-1)
-        quadruples.append(Quadruple('GOTOF', memory_result, None, 0))
+        quadruples.append(Quadruple('GOTOF', result_memory, None, 0))
     else:
         p_notifError(str(lexer.lineno) + " - Error in type operations")
-    for_var_stack.append(curr_assignment_for)
+    for_var_stack.append(curr_for_assign)
 
 
 def p_np_endCondition(p):
     'np_endCondition  : '
-    global curr_assignment_for
-    curr_assignment_for = for_var_stack.pop()
+    global curr_for_assign
+    curr_for_assign = for_var_stack.pop()
 
     if '1' not in constants_table['Int'].keys():
         constants_table['Int']['1'] = {
@@ -1056,15 +1056,15 @@ def p_np_endCondition(p):
     memory_sum = constants_table['Int']['1']['memory']
 
     if curr_func_name == prog_name:
-        memory_result = p_get_global_memory('Int')
+        result_memory = p_get_global_memory('Int')
     else:
-        memory_result = p_get_local_memory('Int')
+        result_memory = p_get_local_memory('Int')
 
-    quadruples.append(Quadruple('+', curr_assignment_for,
-                      memory_sum, memory_result))
-    quadruples.append(Quadruple('=', memory_result, None, curr_assignment_for))
+    quadruples.append(Quadruple('+', curr_for_assign,
+                      memory_sum, result_memory))
+    quadruples.append(Quadruple('=', result_memory, None, curr_for_assign))
     quadruples.append(Quadruple('GOTO', None, None, jumps_stack[-1]))
-    quadruples[jumps_stack.pop() + 1].res = len(quadruples)
+    quadruples[jumps_stack.pop() + 1].result = len(quadruples)
 
 # CALL
 
