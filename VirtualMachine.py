@@ -226,17 +226,6 @@ while running:
         res = eval(
             f'{get_type(quadruple[1])} {operator} {get_type(quadruple[2])}')
         comparer(res, quadruple[3])
-        """if is_local(quadruple[3]):
-            if res == False:
-                local_variables[-1][quadruple[3]] = 0
-            else:
-                local_variables[-1][quadruple[3]] = 1
-        else:
-            if quadruple[3] == False:
-                st[quadruple[3]] = 0
-            else:
-                st[quadruple[3]] = 1
-        current_quadruple += 1 """
 
     # AND
     elif operator == '&':
