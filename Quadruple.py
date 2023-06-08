@@ -5,5 +5,6 @@ class Quadruple:
         self.right_operand = right_operand
         self.result = result
 
+    # returns a list containing the quadruple
     def getQuadruple(self):
         return [self.operator, self.left_operand, self.right_operand, self.result]

@@ -112,6 +112,8 @@ def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
+# Error
+
 
 def t_error(t):
     print(f"Invalid character '{t.value[0]}' on line '{t.lexer.lineno}'")
@@ -405,6 +407,8 @@ def p_empty(p):
     empty : 
     '''
 
+# Start the program
+
 
 def p_np_program(p):
     'np_program : '
@@ -462,6 +466,8 @@ def p_np_endFunction(p):
         quadruples.append(Quadruple('ENDFUNC', None, None, None))
         exists_return = 0
 
+# - When starting a main program
+
 
 def p_np_main(p):
     'np_main : '
@@ -506,6 +512,8 @@ def p_np_addVariableToStack(p):
     global vars_stack
     current_variable_name = p[-1]
     vars_stack.append(current_variable_name)
+
+# ADD ARRAYS
 
 
 def p_np_addArray(p):
@@ -584,6 +592,8 @@ def p_np_addArrayID(p):
             variables_table[prog_name]['variables'][id]['type'])
     else:
         p_notifError(str(lexer.lineno) + " - Variable " + id + " not declared")
+
+# Constants
 
 
 def p_np_addConstInt(p):
@@ -887,6 +897,8 @@ def p_np_doHyperExp(p):
                 p_notifError(str(lexer.lineno) +
                              " - Type operation error")
 
+# Assignment
+
 
 def p_np_assignment(p):
     'np_assignment : '
@@ -900,6 +912,8 @@ def p_np_assignment(p):
     else:
         p_notifError(str(lexer.lineno) +
                      " - Assignment cannot be performed due to type compatibility")
+
+# Input
 
 
 def p_np_read(p):
@@ -915,6 +929,8 @@ def p_np_read(p):
     else:
         p_notifError(str(lexer.lineno) + " - Variable " +
                      p[-1] + " must be declared before it is used")
+
+# Output
 
 
 def p_np_write(p):
@@ -933,6 +949,8 @@ def p_np_string(p):
 
     quadruples.append(Quadruple('WRITE', None, None, mem_strings))
 
+# Return
+
 
 def p_np_return(p):
     'np_return : '
@@ -944,6 +962,8 @@ def p_np_return(p):
         p_notifError(str(lexer.lineno) +
                      " - The returned value is not compatible with the function type")
 
+# IF
+
 
 def p_np_startDecision(p):
     'np_startDecision : '
@@ -953,6 +973,8 @@ def p_np_startDecision(p):
     else:
         p_notifError(str(lexer.lineno) + " - The variable " +
                      terms_stack[-1] + " can't be used for a decision")
+
+# else
 
 
 def p_np_startDecisionElse(p):
@@ -965,6 +987,8 @@ def p_np_startDecisionElse(p):
 def p_np_endDecision(p):
     'np_endDecision : '
     quadruples[jumps_stack.pop()].result = len(quadruples)
+
+# while
 
 
 def p_np_conditionalBefore(p):
@@ -983,7 +1007,7 @@ def p_np_conditionalAfter(p):
     quadruples[jumps_stack.pop() + 1].result = len(quadruples)
 
 
-# NON CONDITIONAL
+# NON CONDITIONAL  - For
 def p_np_addIDFor(p):
     'np_addIDFor : '
     global curr_func_name, prog_name
@@ -1141,7 +1165,8 @@ parser = yacc.yacc()
 
 def generate_data():
     try:
-        file = input('File: ')
+        file = 'test.neupy'
+        # file = input('File: ')
         with open(file, 'r') as file:
             parser.parse(file.read())
 

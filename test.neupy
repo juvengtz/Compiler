@@ -4,13 +4,21 @@ Var x : Int;
 
 Int Function test(dato : Int) {
 
-Return(dato * test(dato - 1));
-  
+Write(dato);
+
+
+While(dato <= 37) Do {
+  dato = dato + 1;
+  Write(dato);
+}
+
+
+Return(dato);
 }
 
 Main(){
 
   Read(x);
-  Write("test")
+  Write("test");
   Write(test(x));
 }
