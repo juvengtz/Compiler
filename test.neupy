@@ -1,24 +1,25 @@
 Program recursive;
 
-Var x : Int;
+Var 
+  x : Int;
+  y : Float;
+  g : Char;
 
-Int Function test(dato : Int) {
+Void Function test() {
 
-Write(dato);
-
-
-While(dato <= 37) Do {
-  dato = dato + 1;
-  Write(dato);
+Write("tipos de datos");
 }
 
-
-Return(dato);
-}
 
 Main(){
-
+  test();
+  Write("int");
   Read(x);
-  Write("test");
-  Write(test(x));
+  Write(x);
+  Write("float");
+  Read(y);
+  Write(y);
+  Write("char");
+  Read(g);
+  Write(g);
 }

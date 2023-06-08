@@ -1,13 +1,13 @@
 Program simpleTest;
 
 Var
-    x : Int;
-    y : Int;
-    z : Int;
+    x : Float;
+    y : Float;
+    z : Float;
 
-Int Function addNumbers(a : Int, b : Int) 
+Float Function addNumbers(a : Float, b : Float) 
 Var
-    result : Int;
+    result : Float;
 {
     result = a + b;
     Return(result);

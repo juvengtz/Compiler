@@ -44,15 +44,15 @@ max_float = 2000
 min_float = 3001
 for var in variable_table[prog_name]['variables']:
     if variable_table[prog_name]['variables'][var]['type'] == 'Float':
-        if variable_table[prog_name]['variables'][var]['variable_table'] > max_float:
-            max_float = variable_table[prog_name]['variables'][var]['variable_table']
+        if variable_table[prog_name]['variables'][var]['memory'] > max_float:
+            max_float = variable_table[prog_name]['variables'][var]['memory']
 
-        if variable_table[prog_name]['variables'][var]['variable_table'] < min_float:
-            min_float = variable_table[prog_name]['variables'][var]['variable_table']
+        if variable_table[prog_name]['variables'][var]['memory'] < min_float:
+            min_float = variable_table[prog_name]['variables'][var]['memory']
 
 while min_float <= max_float:
     super_variable_table[min_float] = None
-    max_float += 1
+    min_float += 1
 
 max_char = 3000
 min_char = 4001
@@ -297,7 +297,10 @@ while running:
         if int(quadruple[2]) <= int(get_type(quadruple[1])) < int(quadruple[3]):
             pass
         else:
+            print(
+                f'{current_quadruple},{quadruple[2]},{get_type(quadruple[1])},{quadruple[3]}')
             notify_error("Invalid index for array/matrix")
+
         current_quadruple += 1
     elif operator == 'SUM_BASE':
 

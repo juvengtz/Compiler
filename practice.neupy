@@ -1,0 +1,24 @@
+Program try;
+
+Var
+    arr[5] : Int;
+    n, i, j, k, temp : Int;
+
+Main()
+{
+    arr[0] = 1;
+    arr[1] = 2;
+    arr[2] = 3;
+    arr[3] = 4;
+    arr[4] = 5;
+
+    n = 6;
+    i = 2;
+    j = n + 1;
+    From(temp = 0) To 4 Do{
+                
+        arr[temp] = arr[i];
+        arr[i] = arr[i]+1;
+        Write(arr[temp]);
+    }
+}
