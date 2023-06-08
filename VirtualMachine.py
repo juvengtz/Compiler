@@ -324,15 +324,3 @@ while running:
     else:
         print("Error in the quadruples")
         running = 0
-
-
-"""
-
-def handle_functions(operator, quadruple):
-    global current_quadruple, current_function, current_parameters
-    local_table_dictionary = {}
-
-
-def handle_arrays(operator, quadruple):
-    global current_quadruple
-"""

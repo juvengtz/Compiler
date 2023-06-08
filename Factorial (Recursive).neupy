@@ -1,0 +1,24 @@
+Program factorialRecursive;
+
+Var
+    n : Int;
+    result : Int;
+
+Int Function factorial(m : Int)
+{
+    If (m == 0 | m == 1) Then
+    {
+        Return(1);
+    }
+    Else
+    {
+        Return(m * factorial(m - 1));
+    }
+}
+
+Main()
+{
+    Read(n);
+    result = factorial(n);
+    Write(result);
+}

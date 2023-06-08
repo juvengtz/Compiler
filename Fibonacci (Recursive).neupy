@@ -1,0 +1,27 @@
+Program fibonacciRecursive;
+Var
+    n : Int;
+    fib : Int;
+Int Function fibonacci(m : Int)
+{
+    If (m == 0) Then
+    {
+        Return(0);
+    }
+    Else {
+        If (m == 1) Then
+    {
+        Return(1);
+    }
+    Else
+    {
+        Return(fibonacci(m - 1) + fibonacci(m - 2));
+    }
+    }
+}
+Main()
+{
+    Read(n);
+    fib = fibonacci(n);
+    Write(fib);
+}

@@ -1,24 +1,47 @@
-Program linearSearch
-Var
-    arr[10] : Int;
+Program linearSearch;
+
+Var 
+    arr[10] : Int; 
     n : Int;
-    key : Int;
-Function Int find(arr : Int, n : Int, key : Int)
-Var
     i : Int;
-{
-    From (i = 0) To n Do
-    {
-        If (arr[i] == key) Then
+    searchValue : Int;
+    found : Int;
+    value : Int;
+
+Main()
+{   
+    arr[0] = 3;
+    arr[1] = 4;
+    arr[2] = 2;
+    arr[3] = 7;
+    arr[4] = 4;
+    arr[5] = -2;
+    arr[6] = 2;
+    arr[7] = 17;
+    arr[8] = -9;
+    arr[9] = -8;
+    
+    searchValue = 7;
+    found = 0;
+    i = 0;
+    
+    From (i = 0) To 9 Do 
+    {   
+        If (arr[i] == searchValue) Then
         {
-            Return(i);
+            found = 1;
+            value = arr[i];
+            
         }
     }
-    Return(-1);
-}
-Main()
-{
-    # Read n, arr and key from input
-    i = find(arr, n, key);
-    Write(i);
+    
+    If (found == 1) Then
+    {
+        Write("Element found");
+        Write(value);
+    }
+    Else
+    {
+        Write("Element not found");
+    }
 }

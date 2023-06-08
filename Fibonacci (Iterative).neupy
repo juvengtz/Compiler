@@ -2,7 +2,7 @@ Program fibonacciIterative;
 Var
     n : Int;
     fib : Int;
-Function Int fibonacci(n : Int)
+Int Function fibonacci(m : Int)
 Var
     i : Int;
     fib1 : Int;

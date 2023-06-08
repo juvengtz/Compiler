@@ -3,7 +3,7 @@ Var
     mat1[3][3] : Int;
     mat2[3][3] : Int;
     result[3][3] : Int;
-Function Void multiply(mat1 : Int, mat2 : Int, result : Int)
+Void Function multiply(mat1 : Int, mat2 : Int, result : Int)
 Var
     i : Int;
     j : Int;
