@@ -1,0 +1,21 @@
+program factorialRec;
+var int : n, result;
+
+function int factorial(int m)
+var int : i;
+{
+    if(m == 0 | m == 1) then{
+        return(1);
+    }
+    else{
+        return(m* factorial(m-1));
+    }
+}
+
+main()
+{
+    write("input: ");
+    read(n);
+    result = factorial(n);
+    write(result);
+}

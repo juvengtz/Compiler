@@ -1,0 +1,13 @@
+program pelos;
+var int: j, k, n;
+var float: x, y;
+
+main ()
+{
+  j = 5;
+  x = 3.14;
+  k = j*3+14;
+  y = x+3;
+  write(j,k);
+  write(x,y);
+}

@@ -1,0 +1,27 @@
+program fibonacciIt;
+var int : n, fib;
+
+function int fibonacci(int m)
+var int : i,fib1,fib2;
+{
+    fib1 = 0;
+    fib2 = 1;
+    if(n == 0) then{
+        return (fib1);
+    }
+    i = 2;
+    while (i <= n) do{
+        fib = fib1 + fib2;
+        fib1 = fib2;
+        fib2 = fib;
+        i = i + 1;
+    }
+    return(fib2);
+}
+
+main(){
+    write("input: ");
+    read(n);
+    fib = fibonacci(n);
+    write(fib);
+}

@@ -1,0 +1,32 @@
+program test1;
+var int : a, b,p,d, arr[10];
+var bool : c;
+
+function int fact(int j)
+var int : i;
+{
+  p = 3;
+  i = j+(p- j*2+j);
+  if (j == 1) then
+  {
+    return (j);
+  }
+  else
+  {
+    return(j*fact(j-1));
+  }
+}
+
+
+main ()
+ {
+  d = 1;
+  while(d < 10) do{
+    arr[d] = 1;
+    write(arr[d]);
+    d = d +1;
+  }
+  read(a);
+  b = fact(a);
+  write(b);
+}

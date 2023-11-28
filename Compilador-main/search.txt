@@ -1,0 +1,40 @@
+program linearSearch;
+var int : arr[10], n, i, searchValue, found, value;
+
+main()
+{   
+    arr[0] = 3;
+    arr[1] = 4;
+    arr[2] = 2;
+    arr[3] = 7;
+    arr[4] = 4;
+    arr[5] = -2;
+    arr[6] = 2;
+    arr[7] = 17;
+    arr[8] = -9;
+    arr[9] = -8;
+    
+    searchValue = 7;
+    found = 0;
+    i = 0;
+    
+    while (i < 10) Do 
+    {   
+        if (arr[i] == searchValue) then
+        {
+            found = 1;
+            value = arr[i];
+        }
+        i = i + 1;
+    }
+    
+    if (found == 1) then
+    {
+        write("Element found");
+        write(value);
+    }
+    else
+    {
+        write("Element not found");
+    }
+}

@@ -1,0 +1,26 @@
+program fibonacciRec;
+var int : n, fib;
+
+function int fibonacci(int m)
+{
+   if ( m == 0) then
+   {
+    return(0);
+   }
+   else{
+    if (m == 1) then
+    {
+        return(1);
+    }
+    else{
+        return(fibonacci(m-1) + fibonacci(m-2));
+    }
+   }
+}
+
+main(){
+    write("input: ");
+    read(n);
+    fib = fibonacci(n);
+    write(fib);
+}
